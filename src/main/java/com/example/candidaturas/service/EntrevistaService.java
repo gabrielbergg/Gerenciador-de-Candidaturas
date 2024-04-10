@@ -1,11 +1,16 @@
 package com.example.candidaturas.service;
 
+import com.example.candidaturas.controller.EntrevistaController;
 import com.example.candidaturas.model.Entrevista;
 import com.example.candidaturas.repository.EntrevistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 
 @Service
 public class EntrevistaService {
@@ -14,11 +19,20 @@ public class EntrevistaService {
     EntrevistaRepository entrevistaRepository;
 
     public List<Entrevista> findAll() {
-        return entrevistaRepository.findAll();
+        List<Entrevista> list = entrevistaRepository.findAll();
+
+        for (Entrevista ent:list) {
+            ent.add(linkTo(methodOn(EntrevistaController.class).findById(ent.getId())).withSelfRel());
+        }
+        return list;
     }
 
     public Entrevista findById(Long id) {
-        return entrevistaRepository.findById(id).orElseThrow();
+
+        Entrevista entrevista = entrevistaRepository.findById(id).orElseThrow();
+        entrevista.add(linkTo(methodOn(EntrevistaController.class).findAll()).withSelfRel());
+
+        return entrevista;
     }
 
     public Entrevista create(Entrevista entrevista) {

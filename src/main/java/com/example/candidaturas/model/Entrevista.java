@@ -2,12 +2,13 @@ package com.example.candidaturas.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Entrevista implements Serializable {
+public class Entrevista extends RepresentationModel<Entrevista> implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

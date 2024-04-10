@@ -1,5 +1,7 @@
 package com.example.candidaturas.service;
 
+import com.example.candidaturas.controller.CandidaturaController;
+import com.example.candidaturas.controller.EntrevistaController;
 import com.example.candidaturas.enums.StatusCandidatura;
 import com.example.candidaturas.model.Candidatura;
 import com.example.candidaturas.repository.CandidaturaRepository;
@@ -9,6 +11,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @Service
 public class CandidaturaService {
 
@@ -23,6 +29,7 @@ public class CandidaturaService {
                     LocalDate.now().isEqual(c.getdataCandidatura().plusMonths(1))) {
                 c.setStatusCandidatura(StatusCandidatura.SEM_RESPOSTA);
                 list.add(c);
+                c.add(linkTo(methodOn(CandidaturaController.class).findById(c.getId())).withSelfRel());
             }
         }
         return list;

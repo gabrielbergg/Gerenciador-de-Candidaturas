@@ -2,6 +2,7 @@ package com.example.candidaturas.model;
 
 import com.example.candidaturas.enums.StatusCandidatura;
 import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Candidatura implements Serializable {
+public class Candidatura extends RepresentationModel<Candidatura> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
