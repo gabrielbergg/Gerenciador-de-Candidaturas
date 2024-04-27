@@ -1,5 +1,6 @@
 package com.example.candidaturas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -13,11 +14,17 @@ public class MelhorarSkills  {
     private Long id;
     private String melhorias;
 
+    @ManyToOne
+    @JoinColumn(name = "candidatura_id")
+    @JsonIgnore
+    private Candidatura candidatura;
+
     public MelhorarSkills() {}
 
-    public MelhorarSkills(Long id, String melhorias) {
+    public MelhorarSkills(Long id, String melhorias, Candidatura candidatura) {
         this.id = id;
         this.melhorias = melhorias;
+        this.candidatura = candidatura;
     }
 
     public Long getId() {
@@ -34,6 +41,14 @@ public class MelhorarSkills  {
 
     public void setMelhorias(String melhorias) {
         this.melhorias = melhorias;
+    }
+
+    public Candidatura getCandidatura() {
+        return candidatura;
+    }
+
+    public void setCandidatura(Candidatura candidatura) {
+        this.candidatura = candidatura;
     }
 
     @Override

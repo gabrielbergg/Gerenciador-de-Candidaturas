@@ -25,7 +25,7 @@ public class MelhorarSkillsService {
         return skillsRepository.save(melhorarSkills);
     }
 
-    public MelhorarSkills update(MelhorarSkills melhorarSkills, Long id) {
+    public MelhorarSkills update(Long id, MelhorarSkills melhorarSkills) {
         MelhorarSkills skills = findById(id);
         skills.setMelhorias(melhorarSkills.getMelhorias());
 

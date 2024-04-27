@@ -32,6 +32,9 @@ public class Candidatura extends RepresentationModel<Candidatura> implements Ser
     @OneToMany(mappedBy = "candidatura")
     private List<Entrevista> entrevista;
 
+    @OneToMany(mappedBy = "candidatura")
+    private List<MelhorarSkills> skillsParaMelhorar;
+
     public Candidatura() {}
 
     public Candidatura(Long id, String tituloVaga, String nomeEmpresa, String requisitosVaga, String localCandidatura, String descricaoVaga, LocalDate dataCandidatura, StatusCandidatura statusCandidatura) {
@@ -112,4 +115,9 @@ public class Candidatura extends RepresentationModel<Candidatura> implements Ser
     public List<Entrevista> getEntrevista() {
         return entrevista;
     }
+
+    public List<MelhorarSkills> getSkills() {
+        return skillsParaMelhorar;
+    }
+
 }
