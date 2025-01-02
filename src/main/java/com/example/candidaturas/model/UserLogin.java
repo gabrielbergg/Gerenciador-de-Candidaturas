@@ -17,17 +17,25 @@ public class UserLogin implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
+    private String name;
+
     @Column(nullable = false, unique = true)
     private String login;
+
     @Column(nullable = false)
     private String password;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
     private Roles roles;
 
+    @OneToMany(mappedBy = "userLogin", fetch = FetchType.LAZY)
+    private List <Candidatura> candidatura;
+
     public UserLogin() {}
 
-    public UserLogin(String login, String password, Roles roles) {
+    public UserLogin(String name, String login, String password, Roles roles) {
+        this.name = name;
         this.login = login;
         this.password = password;
         this.roles = roles;
@@ -39,6 +47,14 @@ public class UserLogin implements UserDetails, Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLogin() {
@@ -96,5 +112,9 @@ public class UserLogin implements UserDetails, Serializable {
 
     public void setRoles(Roles roles) {
         this.roles = roles;
+    }
+
+    public List<Candidatura> getCandidatura() {
+        return candidatura;
     }
 }

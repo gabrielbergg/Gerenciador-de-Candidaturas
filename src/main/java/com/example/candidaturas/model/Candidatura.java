@@ -1,12 +1,14 @@
 package com.example.candidaturas.model;
 
 import com.example.candidaturas.enums.StatusCandidatura;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -35,9 +37,14 @@ public class Candidatura extends RepresentationModel<Candidatura> implements Ser
     @OneToMany(mappedBy = "candidatura")
     private List<MelhorarSkills> skillsParaMelhorar;
 
+    @ManyToOne
+    @JoinColumn(name = "userLogin_id")
+    @JsonIgnore
+    private UserLogin userLogin;
+
     public Candidatura() {}
 
-    public Candidatura(Long id, String tituloVaga, String nomeEmpresa, String requisitosVaga, String localCandidatura, String descricaoVaga, LocalDate dataCandidatura, StatusCandidatura statusCandidatura) {
+    public Candidatura(Long id, String tituloVaga, String nomeEmpresa, String requisitosVaga, String localCandidatura, String descricaoVaga, LocalDate dataCandidatura, StatusCandidatura statusCandidatura, UserLogin userLogin) {
         this.id = id;
         this.tituloVaga = tituloVaga;
         this.nomeEmpresa = nomeEmpresa;
@@ -46,6 +53,7 @@ public class Candidatura extends RepresentationModel<Candidatura> implements Ser
         this.descricaoVaga = descricaoVaga;
         this.dataCandidatura = dataCandidatura;
         this.statusCandidatura = statusCandidatura;
+        this.userLogin = userLogin;
     }
 
     public Long getId() {
@@ -120,4 +128,25 @@ public class Candidatura extends RepresentationModel<Candidatura> implements Ser
         return skillsParaMelhorar;
     }
 
+    public UserLogin getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(UserLogin userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Candidatura that = (Candidatura) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), id);
+    }
 }
