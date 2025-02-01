@@ -1,0 +1,41 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:8.0.33
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+      MYSQL_ROOT_PASSWORD: nogueira_403
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: nogueira_403
+      MYSQL_DATABASE: candidaturas
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_TCP_PORT: 3308
+    ports:
+      - 3308:3308
+    expose:
+      - 3308
+    networks:
+      - minha_rede
+
+  api:
+    build: "/mnt/c/Users/alvin/OneDrive/Documentos/Gerenciador de candidaturas/candidaturas"
+    working_dir: /mnt/c/Users/alvin/OneDrive/Documentos/Gerenciador de candidaturas/candidaturas
+    restart: always
+    environment:
+      TZ: America/Sao_Paulo
+      SPRING.DATASOURCE.URL: jdbc:mysql://db:3308/candidaturas?createDatabaseIfNotExist=true
+      SPRING.DATASOURCE.USERNAME: root
+      SPRING.DATASOURCE.PASSWORD: nogueira_403
+    ports:
+      - 8080:8080
+    command: mvn spring-boot:run
+    depends_on:
+      - db
+    networks:
+      - minha_rede
+
+networks:
+  minha_rede:
+    driver: bridge

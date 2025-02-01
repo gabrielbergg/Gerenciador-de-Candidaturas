@@ -3,7 +3,7 @@ package com.example.candidaturas.enums;
 public enum Roles {
 
     USER("Usuário"),
-    VISITOR("Visitante");
+    ADMIN("Adiministrador");
 
     private String roles;
 

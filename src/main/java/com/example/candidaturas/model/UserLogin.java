@@ -26,7 +26,7 @@ public class UserLogin implements UserDetails, Serializable {
     @Column(nullable = false)
     private String password;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 80)
     private Roles roles;
 
     @OneToMany(mappedBy = "userLogin", fetch = FetchType.LAZY)

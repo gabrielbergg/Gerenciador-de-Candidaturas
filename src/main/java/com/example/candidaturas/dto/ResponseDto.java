@@ -1,4 +1,6 @@
 package com.example.candidaturas.dto;
 
-public record ResponseDto(String login, String token) {
+import com.example.candidaturas.enums.Roles;
+
+public record ResponseDto(String login, Roles roles, String token) {
 }
