@@ -1,4 +1,4 @@
-version: '3.9'
+
 services:
   db:
     image: mysql:8.0.33
@@ -20,8 +20,8 @@ services:
       - minha_rede
 
   api:
-    build: "/mnt/c/Users/alvin/OneDrive/Documentos/Gerenciador de candidaturas/candidaturas"
-    working_dir: /mnt/c/Users/alvin/OneDrive/Documentos/Gerenciador de candidaturas/candidaturas
+    build:
+      context: "/mnt/c/Users/alvin/OneDrive/Documentos/Gerenciador de candidaturas/candidaturas"
     restart: always
     environment:
       TZ: America/Sao_Paulo
@@ -30,7 +30,7 @@ services:
       SPRING.DATASOURCE.PASSWORD: nogueira_403
     ports:
       - 8080:8080
-    command: mvn spring-boot:run
+    command: mvn clean spring-boot:run
     depends_on:
       - db
     networks:

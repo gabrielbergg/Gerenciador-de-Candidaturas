@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 
 import java.net.URI;
 import java.util.List;
@@ -42,6 +44,7 @@ public class EntrevistaController {
         return ResponseEntity.ok().body(list);
     }
 
+    @PreAuthorize("hasRole('ADMIN') or #id == principal.id")
     @GetMapping("/{id}")
     @Operation(summary = "Encontra uma pergunta e a sua resposta", description = "Encontrar uma pergunta e a sua resposta",
             tags = {"Entrevista"}, responses = {

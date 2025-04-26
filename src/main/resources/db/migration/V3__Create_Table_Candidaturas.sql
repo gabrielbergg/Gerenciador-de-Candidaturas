@@ -9,8 +9,7 @@ CREATE TABLE `candidatura` (
   `descricao_vaga` varchar(255) DEFAULT NULL,
   `data_candidatura` date DEFAULT NULL,
   `status_candidatura` enum('AGUARDANDO_RESPOSTA', 'SEM_RESPOSTA', 'RESPOSTA_POSITIVA', 'RESPOSTA_NEGATIVA') DEFAULT NULL,
-  `userLogin_id` bigint,
+  `user_login_id` bigint,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_user_login_id` FOREIGN KEY (`userLogin_id`) REFERENCES `users` (`id`)
+  CONSTRAINT `fk_user_login_id` FOREIGN KEY (`user_login_id`) REFERENCES `users` (`id`)
 );
-
