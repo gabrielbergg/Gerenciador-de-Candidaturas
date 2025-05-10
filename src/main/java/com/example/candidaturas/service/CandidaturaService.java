@@ -35,6 +35,10 @@ public class CandidaturaService {
         return list;
     }
 
+    public List<Candidatura> findAllByUserLoginId(Long id) {
+        return canditRepository.findAllByUserLoginId(id);
+    }
+
     public List<Candidatura> aguardandoResposta() {
         List<Candidatura> list =  new ArrayList<>();
 

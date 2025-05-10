@@ -94,6 +94,13 @@ public class CandidaturaController {
         return ResponseEntity.ok().body(list);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<List<Candidatura>> findAllByUsuario_Id(@PathVariable(value = "id") Long id) {
+        List<Candidatura> list = canditService.findAllByUserLoginId(id);
+
+        return ResponseEntity.ok().body(list);
+    }
+
     @GetMapping("{st}/{id}")
     @Operation(summary = "Encontrar uma candidatura de acordo com o seu status e com o id", description = "Encontrar uma candidatura de acordo com o seu status e com o id",
             tags = {"Candidaturas"}, responses = {
